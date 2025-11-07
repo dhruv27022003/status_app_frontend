@@ -105,8 +105,17 @@ Access your public status page at `/status/:userId` where `:userId` is your user
 
 ## Environment Variables
 
-- `VITE_API_URL` - Backend API URL (default: http://localhost:3000)
-- `VITE_SOCKET_URL` - Socket.io server URL (default: http://localhost:3000)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_URL` | Backend API base URL | `http://localhost:3000` |
+| `VITE_SOCKET_URL` | WebSocket server URL | `http://localhost:3000` |
+| `VITE_PORT` | Vite dev server port | `3001` |
+| `VITE_APP_NAME` | Application display name | `Status Page` |
+| `VITE_APP_URL` | Full frontend URL (for email links) | `http://localhost:3001` |
+
+**Note**: All environment variables must start with `VITE_` to be accessible in the frontend code.
+
+See [ENV_CONFIG.md](./ENV_CONFIG.md) for detailed configuration instructions.
 
 ## Development
 
