@@ -6,6 +6,7 @@ import { getSocket } from '../services/socket';
 import ServiceCard from '../components/ServiceCard';
 import IncidentCard from '../components/IncidentCard';
 import StatusBadge from '../components/StatusBadge';
+import UptimeChart from '../components/UptimeChart';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -198,6 +199,22 @@ const Dashboard = () => {
             </div>
           )}
         </div>
+
+        {/* Uptime Metrics Section */}
+        {services.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Service Uptime Metrics</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {services.map((service) => (
+                <UptimeChart
+                  key={service._id}
+                  serviceId={service._id}
+                  serviceName={service.name}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Incidents Section */}
         <div>
