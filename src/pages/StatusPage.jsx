@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import { connectSocket, getSocket } from '../services/socket';
 import StatusBadge from '../components/StatusBadge';
 
 const StatusPage = () => {
   const { userId } = useParams();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   useEffect(() => {
     fetchStatusData();
@@ -100,6 +108,24 @@ const StatusPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Logout button for authenticated users */}
+      {user && (
+        <div className="bg-white shadow-md border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-end items-center h-16">
+              <div className="flex items-center gap-4">
+                <span className="text-gray-700">Welcome, {user.name}</span>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
